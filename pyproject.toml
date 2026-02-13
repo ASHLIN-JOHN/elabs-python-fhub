@@ -7,7 +7,7 @@ name = "elabs"
 version = "0.1.0"
 description = "Python module for circuit design, simulation, and visualization."
 authors = [
-  { name="ELabs Team", email="support@elabs.com" }
+  { name="elabs", email="support@elabs.com" }
 ]
 readme = "README.md"
 requires-python = ">=3.7"
@@ -20,5 +20,5 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/elabs-team/elabs"
-Repository = "https://github.com/elabs-team/elabs"
+Homepage = "https://github.com/ASHLIN-JOHN/elabs-python-fhub"
+Repository = "https://github.com/ASHLIN-JOHN/elabs-python-fhub"
