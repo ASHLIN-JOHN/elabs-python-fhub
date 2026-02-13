@@ -131,9 +131,41 @@ class Circuit:
             "connections": c.connections
         }
 
-    def show(self, frontend_url: str = "http://localhost:3001"):
-        # For now, just open the frontend
-        webbrowser.open(frontend_url)
+    def save(self, filename: str = "circuit.efhub"):
+        """
+        Save the circuit to a .efhub file (JSON format).
+        """
+        import json
+        with open(filename, "w") as f:
+            json.dump(self.to_dict(), f, indent=2)
+        return filename
+
+    def show(self, frontend_url: str = None):
+        """
+        Open the frontend with circuit data as a URL parameter.
+        Uses localhost in development mode if available, otherwise production URL.
+        """
+        import json
+        import urllib.parse
+        import socket
+        # Try localhost first
+        dev_url = "http://localhost:3001"
+        prod_url = "https://elabsbyfhub.netlify.app/"
+        url_to_use = prod_url
+        if frontend_url:
+            url_to_use = frontend_url
+        else:
+            # Check if localhost is running
+            try:
+                sock = socket.create_connection(("localhost", 3001), timeout=1)
+                sock.close()
+                url_to_use = dev_url
+            except Exception:
+                url_to_use = prod_url
+        circuit_data = json.dumps(self.to_dict())
+        encoded = urllib.parse.quote(circuit_data)
+        url = f"{url_to_use}?circuit={encoded}"
+        webbrowser.open(url)
 
 # Example usage:
 # import elabs
